@@ -24,4 +24,4 @@ Flags domain alignment issues, homoglyph attacks (rnicrosoft.com vs microsoft.co
 
 **Trust Scoring**
 
-Combines all checks into a weighted score:
+Combines all checks into a weighted score.
