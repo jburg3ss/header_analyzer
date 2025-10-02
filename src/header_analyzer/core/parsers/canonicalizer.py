@@ -1,23 +1,20 @@
 # src/header_analyzer/core/parsers/canonical.py
 
 """
-Normalizes raw email headers into a consistent structure for safe analysis.
+    Parses email headers and normalizes their field names to meet RFC 5322 compliance
 
-Handles:
-    - Line ending normalization (CRLF/CR → LF)
-    - Unfolding wrapped lines (continuation lines starting with space/tab)
-    - Header name standardization (FROM/from → From per RFC 5322)
-    - Preserving multiple instances of the same header in order
-    - Removing NULs and excess whitespace
+    - The email module--specifically, email.policy--takes care of additional parsing 
+      (unfolding, decoding, line endings etc)
+    - canonicalize_header() normalizes all headers to consistent case for clean 
+      analysis output
 
-References:
-    ~ https://datatracker.ietf.org/doc/html/rfc5321
-    ~ https://datatracker.ietf.org/doc/html/rfc5322
-    ~ https://datatracker.ietf.org/doc/html/rfc3469
-    ~ https://datatracker.ietf.org/doc/html/rfc6376
-    ~ https://datatracker.ietf.org/doc/html/rfc7208
-    ~ https://datatracker.ietf.org/doc/html/rfc8601
+    References:
+        - https://datatracker.ietf.org/doc/html/rfc5322
+
 """
+
+from email import message_from_string
+from email.policy import default
 
 _FIELD = {
     "from": "From",
@@ -56,8 +53,7 @@ _FIELD = {
 }
 def canonicalize_header(name: str) -> str:
     """
-    Desc:
-        Canonical header field name to RFC 5322 case (FROM:/from: -> From:)
+    Canonical header field name to RFC 5322 case (FROM:/from: -> From:)
 
     Args: 
         name: Raw header field name (e.g., "FROM", "content-TYPE")
@@ -73,14 +69,23 @@ def canonicalize_header(name: str) -> str:
         "X-Custom-Header"
     """
 
-    key = name.strip().lower()
-    if not key:
-        return ""
+    return _FIELD.get(name, "-".join(h_name.capitalize() for h_name in name.split("-")))
+
+def parse_headers(raw: str) -> dict[str, list[str]]:
+    """Parse raw headers using stdlib, return all values per field."""
+
+    msg = message_from_string(raw, policy=default)
     
-    return _FIELD.get(key, "-".join(f.capitalize() for f in key.split("-")))
+    headers = {}
+    for h_name, h_value in msg.items():
+        canonical_name = canonicalize_header(h_name)
+        if canonical_name not in headers:
+            headers[canonical_name] = []
+        headers[canonical_name].append(h_value)
+    
+    return headers
 
-
-
+        
 
 
 
