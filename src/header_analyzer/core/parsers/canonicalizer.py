@@ -53,13 +53,13 @@ _FIELD = {
 }
 def canonicalize_header(name: str) -> str:
     """
-    Canonical header field name to RFC 5322 case (FROM:/from: -> From:)
+    Return RFC-ish canonical case for a non-empty header name
 
     Args: 
         name: Raw header field name (e.g., "FROM", "content-TYPE")
 
     Returns: 
-        Canonical form (e.g., "From", "Content-Type"), or empty string if invalid
+        Canonical form (e.g., "From", "Content-Type")
 
     Examples:
         >>> canonicalize_header("FROM")
@@ -69,28 +69,26 @@ def canonicalize_header(name: str) -> str:
         "X-Custom-Header"
     """
 
-    return _FIELD.get(name, "-".join(h_name.capitalize() for h_name in name.split("-")))
+    key = name.strip().lower()
+    return _FIELD.get(key, "-".join(seg.capitalize() for seg in key.split("-")))
 
 def parse_headers(raw: str) -> dict[str, list[str]]:
-    """Parse raw headers using stdlib, return all values per field."""
+    """
+    Parse raw headers using stdlib
+
+    Returns:
+
+        Dict of canonical_name -> list of values
+    """
 
     msg = message_from_string(raw, policy=default)
-    
-    headers = {}
+    headers: dict[str, list[str]] = {}
+
     for h_name, h_value in msg.items():
-        canonical_name = canonicalize_header(h_name)
-        if canonical_name not in headers:
-            headers[canonical_name] = []
-        headers[canonical_name].append(h_value)
-    
+        if not h_name.strip():
+            continue
+        cname = canonicalize_header(h_name)
+        headers.setdefault(cname, []).append(h_value)
+
     return headers
-
-        
-
-
-
-
-
-
-
 
