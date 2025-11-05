@@ -1,0 +1,77 @@
+[build-system]
+requires = ["setuptools>=69.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "header-analyzer"
+version = "0.1.0"
+description = "A modular toolkit for parsing and analyzing email headers."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+  { name = "Josh Burgess", email = "you@example.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pytest>=8.4.2",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0",
+  "pytest-cov",
+  "ruff",
+  "mypy",
+  "pyment",
+]
+
+[project.urls]
+Homepage = "https://github.com/jburg3ss/header_analyzer"
+Documentation = "https://github.com/jburg3ss/header_analyzer/tree/main/docs"
+Issues = "https://github.com/jburg3ss/header_analyzer/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"header_analyzer" = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+# ---------------------------------------------------------------------------
+# Ruff Linter & Formatter (modern layout, v0.14+)
+# ---------------------------------------------------------------------------
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+exclude = ["docs", "venv", ".git", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N"]
+ignore = ["E501"]
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+
+# ---------------------------------------------------------------------------
+# MyPy Type Checking
+# ---------------------------------------------------------------------------
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_unused_configs = true
+mypy_path = "src"
+disallow_untyped_defs = true
+ignore_missing_imports = true
+

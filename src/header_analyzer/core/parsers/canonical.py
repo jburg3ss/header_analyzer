@@ -4,10 +4,10 @@
 Parses email headers and normalizes their field names to meet RFC 5322
 compliance.
 
-- The email module--specifically, email.policy--takes care of additional parsing
-  (unfolding, decoding, line endings etc)
-- canonicalize_header() normalizes all headers to consistent case for clean
-  analysis output
+    - The email module--specifically, email.policy--takes care of additional parsing
+      (unfolding, decoding, line endings etc)
+    - canonicalize_header() normalizes all headers to consistent case for clean
+      analysis output
 
 References:
     - https://datatracker.ietf.org/doc/html/rfc5322
@@ -51,19 +51,18 @@ _FIELD = {
 
 
 def canonicalize_header(name: str) -> str:
-    """
-    Return RFC-ish canonical case for a non-empty header name.
+    """Return RFC-ish canonical case for a non-empty header name.
 
-    Args:
-        name: Raw header field name (e.g., "FROM", "content-TYPE")
-
-    Returns:
-        Canonical form (e.g., "From", "Content-Type")
-
+    :param name: Raw header field name
+    :param name: str:
+    :param name: str: 
+    :returns: Canonical form (e.g., "From", "Content-Type")
+    
     Examples:
-        >>> canonicalize_header("FROM")
-        "From"
 
+    >>> canonicalize_header("FROM")
+        "From"
+    
         >>> canonicalize_header("x-custom-header")
         "X-Custom-Header"
     """
@@ -73,12 +72,13 @@ def canonicalize_header(name: str) -> str:
 
 
 def parse_headers(raw: str | bytes) -> dict[str, list[str]]:
-    """
-    Parse raw headers using the Python standard library.
+    """Parse raw headers using the Python standard library.
 
-    Returns:
-        dict[str, list[str]]: Canonical header names mapped to their values,
-        preserving order and allowing multiple values per field.
+    :param raw: str | bytes:
+    :param raw: str | bytes: 
+    :returns: Canonical header names mapped to their values,
+    :rtype: dict[str, list[str]]
+
     """
 
     if isinstance(raw, bytes):
