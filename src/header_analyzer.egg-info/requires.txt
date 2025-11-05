@@ -1,0 +1,8 @@
+pytest>=8.4.2
+
+[dev]
+pytest>=8.0
+pytest-cov
+ruff
+mypy
+pyment

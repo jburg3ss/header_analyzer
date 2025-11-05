@@ -50,9 +50,13 @@ _FIELD = {
 }
 
 
+<<<<<<< HEAD
 def canonicalize_header(
         name: str
 ) -> str:
+=======
+def canonicalize_header(name: str) -> str:
+>>>>>>> origin/main
     """Return RFC-ish canonical case for a non-empty header name.
 
     :param name: Raw header field name
@@ -65,7 +69,11 @@ def canonicalize_header(
     >>> canonicalize_header("FROM")
         "From"
     
+<<<<<<< HEAD
     >>> canonicalize_header("x-custom-header")
+=======
+        >>> canonicalize_header("x-custom-header")
+>>>>>>> origin/main
         "X-Custom-Header"
     """
 
@@ -73,9 +81,6 @@ def canonicalize_header(
     return _FIELD.get(key, "-".join(seg.capitalize() for seg in key.split("-")))
 
 
-def parse_headers(
-        raw: str | bytes
-) -> dict[str, list[str]]:
     """Parse raw headers using the Python standard library.
 
     :param raw: str | bytes:
