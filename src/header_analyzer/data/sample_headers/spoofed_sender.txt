@@ -1,0 +1,17 @@
+Return-Path: <support@paypa1.com>
+Received: from unknown (HELO smtp.randomhost.biz) (185.231.91.44)
+    by mail.example.org with ESMTP; Tue, 18 Feb 2025 14:32:11 +0000
+From: "PayPal Security" <support@paypa1.com>
+Reply-To: noreply@secure-paypa1.com
+To: user@example.org
+Subject: Urgent: Verify Your Account Immediately
+Date: Tue, 18 Feb 2025 14:31:52 +0000
+Message-ID: <20250218143152.ABC12345@smtp.randomhost.biz>
+MIME-Version: 1.0
+Content-Type: text/html; charset=UTF-8
+X-Mailer: Microsoft Outlook 6.0
+Authentication-Results: mail.example.org;
+    spf=fail (domain spoof) smtp.mailfrom=paypa1.com;
+    dkim=none;
+    dmarc=fail
+

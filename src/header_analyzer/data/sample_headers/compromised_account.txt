@@ -1,0 +1,15 @@
+Return-Path: <employee123@legitcompany.com>
+Received: from user-PC (unknown [103.44.87.221])
+    by smtp.legitcompany.com with ESMTPA; Wed, 19 Feb 2025 06:12:44 -0500
+From: employee123@legitcompany.com
+To: finance-team@legitcompany.com
+Subject: Updated Wire Transfer Details
+Date: Wed, 19 Feb 2025 06:12:39 -0500
+Message-ID: <77f3bc77-e0a9-4b18-89d1-x@user-PC>
+X-Originating-IP: 103.44.87.221
+Authentication-Results: smtp.legitcompany.com;
+    spf=pass;
+    dkim=fail (bad signature);
+    dmarc=fail
+X-Suspected-Spam: Yes
+

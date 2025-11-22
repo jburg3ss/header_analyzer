@@ -49,31 +49,21 @@ _FIELD = {
     "received-spf": "Received-SPF",
 }
 
-
-<<<<<<< HEAD
-def canonicalize_header(
-        name: str
-) -> str:
-=======
 def canonicalize_header(name: str) -> str:
->>>>>>> origin/main
     """Return RFC-ish canonical case for a non-empty header name.
 
-    :param name: Raw header field name
-    :param name: str:
-    :param name: str: 
-    :returns: Canonical form (e.g., "From", "Content-Type")
+    Args:
+        name: Raw header field name
+
+    Returns: 
+        Canonical form (e.g., "From", "Content-Type")
     
     Examples:
 
     >>> canonicalize_header("FROM")
         "From"
     
-<<<<<<< HEAD
     >>> canonicalize_header("x-custom-header")
-=======
-        >>> canonicalize_header("x-custom-header")
->>>>>>> origin/main
         "X-Custom-Header"
     """
 
@@ -81,15 +71,16 @@ def canonicalize_header(name: str) -> str:
     return _FIELD.get(key, "-".join(seg.capitalize() for seg in key.split("-")))
 
 
+def parse_headers(raw: str | bytes) -> dict[str, list[str]]:
     """Parse raw headers using the Python standard library.
 
-    :param raw: str | bytes:
-    :param raw: str | bytes: 
-    :returns: Canonical header names mapped to their values,
-    :rtype: dict[str, list[str]]
+    Args:
+        raw: str | bytes
+
+    Returns:
+        Canonical header names mapped to their values,
 
     """
-
     if isinstance(raw, bytes):
         text = raw.decode("utf-8", errors="surrogateescape")
     else:
@@ -102,6 +93,7 @@ def canonicalize_header(name: str) -> str:
     for h_name, h_value in parsed_headers.items():
         if not h_name.strip():
             continue
+
         cname = canonicalize_header(h_name)
         headers.setdefault(cname, []).append(h_value.strip())
 
